@@ -1,18 +1,33 @@
 #!/usr/bin/env node 
 const axios = require('axios');
 const program = require('commander');
+const fs=require('file-system');
 const url='https://tw.screener.finance.yahoo.net/screener/ws?f=j&ShowID=';
 
 program
   .version('0.0.1')
-  .option('-n, --name <name>', 'Your name.')
-  .option('-s, --say','say World')
+  .option('-s, --save <save>','save stock number')
   .option('-f, --find <find>','find stock detail')
   .parse(process.argv);
 
-	if(program.say)
+	if(program.save)
 	{
-		console.log('say yes');
+		// fs.readFile('stock-number.txt', function (err, data) {
+  //  		if (err) throw err;
+
+  //  		 console.log(data.toString());
+  //  		 });
+  		fs.writeFile('stock-number.txt',program.save,function(err){
+
+  			if(err)
+  			{
+  				console.log(err);
+  			}
+  			else
+  			{
+  				console.log('save stock number',program.save);
+  			}
+  		})
 	}
 	else if(program.find)
 	{
@@ -38,3 +53,4 @@ program
 			});
 
 	}
+
